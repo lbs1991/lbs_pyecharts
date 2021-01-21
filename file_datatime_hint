@@ -1,0 +1,16 @@
+
+dir datetime
+    class date:
+        def __sub__(self, other):
+            """Subtract two dates, or a date and a timedelta."""
+            if isinstance(other, timedelta):
+                return self + timedelta(-other.days)
+            if isinstance(other, date):
+                days1 = self.toordinal()
+                days2 = other.toordinal()
+                return timedelta(days1 - days2)
+            return NotImplemented
+
+    class timedelta:
+        def __new__(cls, days=0, seconds=0, microseconds=0,
+                milliseconds=0, minutes=0, hours=0, weeks=0):
